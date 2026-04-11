@@ -1,0 +1,89 @@
+{% load static %}
+<section class="@container">
+  <div class="p-4">
+    <div class="relative rounded-lg overflow-hidden h-[520px] bg-black" id="carrossel">
+
+      <!-- Slides -->
+      {% for ca in carrossel %}
+      <div class="slide absolute inset-0 transition-opacity duration-700 bg-cover bg-center flex flex-col justify-end px-6 pb-12 md:px-10 md:pb-16 {% if not forloop.first %}opacity-0 pointer-events-none{% endif %}"
+           style="background-image: linear-gradient(rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.55) 100%), url('{{ ca.foto.thumb.url }}');">
+        <div class="max-w-xl flex flex-col gap-2 text-left">
+          <span class="text-xs font-medium text-white/70 uppercase tracking-widest">Destaque</span>
+          <h1 class="text-4xl font-black leading-tight tracking-tighter text-white md:text-5xl">{{ ca.titulo }}</h1>
+          <p class="text-base text-white/90 md:text-lg">{{ ca.descricao }}</p>
+        </div>
+        <div class="flex flex-wrap gap-3 mt-6">
+          <a href="#cardapio" class="flex h-12 items-center justify-center rounded-lg bg-primary px-6 text-base font-bold text-white shadow-lg transition-transform hover:scale-105">Ver Cardápio</a>
+        </div>
+      </div>
+      {% endfor %}
+
+      <!-- Botão anterior -->
+      <button onclick="mover(-1)"
+              class="absolute left-4 top-1/2 -translate-y-1/2 z-20 bg-white/20 hover:bg-white/30 border border-white/30 text-white rounded-full w-11 h-11 flex items-center justify-center text-xl transition-transform hover:scale-110">
+        &#8592;
+      </button>
+
+      <!-- Botão próximo -->
+      <button onclick="mover(1)"
+              class="absolute right-4 top-1/2 -translate-y-1/2 z-20 bg-white/20 hover:bg-white/30 border border-white/30 text-white rounded-full w-11 h-11 flex items-center justify-center text-xl transition-transform hover:scale-110">
+        &#8594;
+      </button>
+
+      <!-- Dots -->
+      <div class="absolute bottom-5 right-10 z-20 flex gap-2" id="dots"></div>
+
+      <!-- Contador -->
+      <span class="absolute bottom-5 left-10 z-20 text-xs text-white/60" id="contador"></span>
+
+    </div>
+  </div>
+</section>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const dotsWrap = document.getElementById('dots');
+  const contador = document.getElementById('contador');
+  let atual = 0;
+  let timer;
+
+  slides.forEach((_, i) => {
+    const dot = document.createElement('button');
+    dot.className = 'w-2 h-2 rounded-full border border-white/80 transition-all duration-200 ' + (i === 0 ? 'bg-white' : 'bg-white/40');
+    dot.onclick = () => irPara(i);
+    dotsWrap.appendChild(dot);
+  });
+
+  function mostrar(n) {
+    slides[atual].classList.add('opacity-0', 'pointer-events-none');
+    dotsWrap.children[atual].classList.remove('bg-white');
+    dotsWrap.children[atual].classList.add('bg-white/40');
+
+    atual = (n + slides.length) % slides.length;
+
+    slides[atual].classList.remove('opacity-0', 'pointer-events-none');
+    dotsWrap.children[atual].classList.add('bg-white');
+    dotsWrap.children[atual].classList.remove('bg-white/40');
+
+    contador.textContent = (atual + 1) + ' / ' + slides.length;
+  }
+
+  function mover(dir) {
+    clearInterval(timer);
+    mostrar(atual + dir);
+    iniciarTimer();
+  }
+
+  function irPara(n) {
+    clearInterval(timer);
+    mostrar(n);
+    iniciarTimer();
+  }
+
+  function iniciarTimer() {
+    timer = setInterval(() => mostrar(atual + 1), 4000);
+  }
+
+  mostrar(0);
+  iniciarTimer();
+</script>

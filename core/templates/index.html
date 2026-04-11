@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content  %}
+    <!-- ==================== HERO SECTION ==================== -->
+     {% include 'hero.html' %}
+
+    <!-- ==================== CARDÁPIO ==================== -->
+   {% include 'cardapio.html' %}
+
+    <!-- ==================== DEPOIMENTOS ==================== -->
+   {% include 'depoimento.html' %}
+
+    <!-- ==================== EQUIPA ==================== -->
+  
+    {% include 'equipe.html' %}
+    <!-- ==================== MODAL DE ENCOMENDA ==================== -->
+   {% include 'modal.html' %}
+    <!-- ==================== FOOTER (NOVO E COMPLETO) ==================== -->
+    {% include 'footer.html' %}
+
+{% endblock %}

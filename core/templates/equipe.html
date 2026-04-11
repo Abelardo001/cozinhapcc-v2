@@ -1,0 +1,16 @@
+<section class="py-16 md:py-24">
+  <div class="container mx-auto px-4 md:px-6 ">
+    <h2 class="text-center text-3xl md:text-4xl font-bold tracking-tighter">Conheça a Nossa Equipa</h2>
+    <div class="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 justify-items-center">
+      {% for eq in equipe %}
+      <div class="group text-center w-full max-w-xs">
+        <div class="relative overflow-hidden rounded-full mx-auto w-48 h-48 mb-6 ring-4 ring-primary/10">
+          <img src="{{ eq.foto.url }}" alt="{{ eq.nome }}" class="w-full h-full object-cover transition-transform group-hover:scale-110">
+        </div>
+        <h3 class="text-xl font-bold">{{ eq.nome }}</h3>
+        <p class="text-primary font-medium">{{ eq.cargo }}</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>

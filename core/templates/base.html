@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cozinha PCC - Encomendas de Comida</title>
+
+  <link rel="stylesheet" href="{% static 'core/css/styles.css' %}">
+  <style>
+    body { min-height: max(884px, 100dvh); }
+  </style>
+</head>
+
+<body class="bg-background-light font-display text-text-main">
+
+  <div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
+
+    <!-- ==================== NAVBAR ==================== -->
+    <header class="sticky top-0 z-50 w-full border-b border-gray-200 bg-background-light/80 backdrop-blur-lg" id="inicio">
+      <div class="container mx-auto flex h-20 items-center justify-between px-4 md:px-6">
+        <a class="text-2xl font-bold text-primary" href="{% url 'index' %}">Cozinha PCC</a>
+        <nav class="hidden items-center gap-6 md:flex">
+          <a class="text-sm font-medium hover:text-primary transition-colors" href="#inicio">Início</a>
+          <a class="text-sm font-medium hover:text-primary transition-colors" href="#cardapio">Cardápio</a>
+  
+          <a class="text-sm font-medium hover:text-primary transition-colors" href="#contacto">Contacto</a>
+        </nav>
+        <a class="hidden h-10 items-center justify-center rounded-lg bg-secondary px-5 text-sm font-bold text-white shadow-sm transition-transform hover:scale-105 md:flex open-modal" href="{% url 'admin:index' %}">
+        Login
+        </a>
+        <button class="p-2 text-text-main md:hidden" aria-label="Abrir menu">
+          <svg class="h-8 w-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 7h16"></path>
+            <path d="M4 12h16"></path>
+            <path d="M4 17h16"></path>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+  
+ {% block content  %} {% endblock %}
+
+   
+  </div>
+</body>
+
+</html>
